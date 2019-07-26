@@ -15,6 +15,7 @@
  - ELB - NLB class
 
 ## how it works:
+![architecture diagram](simplified_diagram.png)
 
 ### overview:
 The atmoz sftp image is small and fast, packaging openssh and a few wrapper shell scripts to create users.  Bind mounting through docker enables persistence.  To make this Highly Available, the container is put behind a Network Load Balancer.  The NLB listens on port a static, high port and forwards to the container port.  The desired count is one, which is enough to support all of the reasons we use it.
