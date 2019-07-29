@@ -33,7 +33,7 @@ For traffic in our private network (including Direct Connect from campus), we di
 
 
 ### service discovery:
-AWS Service Discovery has a "hosted zone", which is private to your VPC and part of Route53.  When used with ECS, containers that have service discovery enabled will create a "service registry".  This service registry is used to update a SRV record when the associated service state is updated.  Suscintly, containers with service discovery enabled will create DNS records (of type SRV) that we can query to know where services are running.  A SRV record has the format: [priority] [weight] [port] [server host name].
+AWS Service Discovery has a "hosted zone", which is private to your VPC and part of Route53.  When used with ECS, containers that have service discovery enabled will create a "service registry".  This service registry is used to update a SRV record when the associated service state is updated.  Succinctly, containers with service discovery enabled will create DNS records (of type SRV) that we can query to know where services are running.  A SRV record has the format: [priority] [weight] [port] [server host name].
 
 SRV records are useful, but there are some limitations.  First, most programs do not natively understand them.  Second, they only work in your VPC, meaning they don't work over direct connect.  To solve the first problem, we need to translate a SRV record to a port number and a host.  Since the port is always 30000, we only need to figure out the host.  To solve the second problem, we can publish the host IP somewhere that on campus servers can look it up, like an A record on our public DNS.  Using this technique lets us connect to our AWS hosted sftp service over direct connect instead of the public internet.
 
